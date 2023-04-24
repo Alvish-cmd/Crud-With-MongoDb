@@ -1,0 +1,92 @@
+<%- include('./include/_header.ejs') %>
+
+
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex-justify-between">
+            <div class="filter">
+                <a href="/"><i class="fas fa-angle-double-left"></i>All Users</a>
+            </div>
+        </div>
+        <div class="form-button text-center">
+            <h2 class="text-dark">Services</h2>
+            <span class="text-light">User the below form to create a new service</span>
+        </div>
+
+<form action="/service" method="POST" id="add_user" >
+    <div class="new_user">
+      <div class="form-group">
+        <label for="name" class="text-light">Name</label>
+        <input type="hidden" name="id" value="" />
+        <select id="Customer_name" name="Customer_name" class="form-control">
+          <option value="detail" selected>select the filed</option>
+        <%  users.forEach(userData=>{ %>
+          <option value="<%=userData.id%>"><%=userData.name%></option>
+          <%})%>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="vehical_number" class="text-light">Vehical Number</label>
+        <input id="txtemail"
+          type="text"
+          name="vehical_number"
+          value=""
+          placeholder="vehical_number"
+        />
+
+      </div> 
+      <div class="form-group">
+        <label for="pickup_date" class="text-light">Pickup Date</label>
+        <input
+        id="txtdob"
+          type="date"
+          name="pickup_date"
+          value=""
+        />
+    
+      </div>
+      <div class="form-group">
+        <label for="drop_date" class="text-light">Drop Date</label>
+        <input
+        id="txtdob"
+          type="date"
+          name="drop_date"
+          value=""
+        />
+    
+      </div>
+      <div class="form-group">
+        <label for="location" class="text-light">Location</label>
+        <input
+          type="text"
+          name="location"
+          value=""
+        />
+        
+      </div>
+      <div class="form-group">
+        <label for="service_price" class="text-light">Service Price</label>
+        <input
+        id="txtphonenumber"
+          type="number"
+          name="service_price"
+          value=""
+        />
+      
+      </div>
+      <div class="form-group">
+        <label for="payble_amount" class="text-light">Payble Amount</label>
+        <input
+        id="txtphonenumber"
+          type="number"
+          name="payble_amount"
+          value=""
+        />   
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn text-dark update">Save</button>
+    </div>
+    </div>
+  </form>
+
+<%- include('./include/_footer.ejs') %>

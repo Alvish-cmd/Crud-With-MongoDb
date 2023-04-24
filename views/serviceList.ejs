@@ -1,6 +1,4 @@
 <%- include('./include/_header') %>
-
-
 <main id="site-main">
     <div class="container">
         <div class="box-nav d-flex-justify-around">
@@ -16,19 +14,24 @@
                 <span class="text-gradient">All Service<i class="fa fa-wrench"></i>
                 </span>
             </a>
-        </div>  
-
+        </div> 
+ 
         <!-- form Handling -->
-        <form action="/" method="POST">
+        <form action="/serviceList" method="POST">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>name</th>
-                        <th>email</th>
-                        <th>Phone Number</th>
-                        <th>image</th>
-                        <th>action</th>
+                        <th>Vehical Number</th>
+                        <th>Pickup Date</th>
+                        <th>Drop Date</th>
+                        <th>Location</th>
+                        <th>Service Price</th>
+                        <th>Payable Amount</th>
+                        <th style="
+                        width: 179px;
+                    ">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,15 +39,17 @@
                         <tr>
                             <td><%= i+1 %></td>
                             <td><%= user[i].name %></td>
-                            <td><%= user[i].email %></td>
-                            <td><%= user[i].number %></td> 
-                            <td><img src="../upload/<%= user[i].image %>"
-                                alt=" <%= user[i].image %>"></td>
+                            <td><%= user[i].vehical_number %></td>
+                            <td><%= user[i].pickup_date %></td> 
+                            <td><%= user[i].drop_date%></td> 
+                            <td><%= user[i].location%></td>
+                            <td><%= user[i].service_price%></td>
+                            <td><%= user[i].payble_amount%></td>
                             <td>
-                                <a href="/update-user?id=<%= user[i]._id%>" class="btn border-shadow update">
+                                <a href="/update-service?id=<%= user[i]._id%>" class="btn border-shadow update">
                                     <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
                                 </a>
-                                <a href="/delete-user?id=<%= user[i]._id%>" class="btn border-shadow delete">
+                                <a href="/delete-service?id=<%= user[i]._id%>" class="btn border-shadow delete">
                                     <span class="text-gradient"><i class="fas fa-times"></i></span>
                                 </a>
                             </td>

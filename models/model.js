@@ -9,8 +9,30 @@ const schema = new mongoose.Schema({
         type:String,
         require:true
     },
-    gender:String,
-    status:String
+    number:{
+        type:Number,
+        require:true
+    },
+    password:{
+        type:String,
+    },
+    Dob:{
+        type:Date,
+    },
+    country:{
+        type:String,
+        require:true
+    },
+    address:{
+        type:String,
+        require:true
+    },
+    image:{
+        type: String,
+    },
+    file:{
+        type: String, 
+    }
 })
 
 const Userdb = mongoose.model('userdb',schema)
