@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT;
 const multer = require('multer');

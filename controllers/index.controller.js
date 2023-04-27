@@ -1,10 +1,12 @@
-const { name } = require('ejs');
+const express = require('express');
 const Userdb = require('../models/model')
 const Servicedb = require('../models/serviceModel')
-
+const moment = require('moment');
 exports.list = async (req, res, next) => {
     const data = await Userdb.find()
-    res.render('list', { user: data });
+    const Dob = moment(data.Dob).format('YYYY-MM-DD')
+    
+    res.render('list', { user: data});
     
   };
 
@@ -26,10 +28,11 @@ exports.create = async(req, res) => {
       file:file.filename,
       country:req.body.country,
       address:req.body.address,
-
     })
-   await user.save(user)
+   await user.save()
+        // console.log(user);
         res.redirect('/')
+        // res.json(user)
 
   } catch (error) {
     console.log(error);
@@ -37,15 +40,21 @@ exports.create = async(req, res) => {
 }
 
 exports.editUser = async(req, res) => {
+
   try {
     if (req.query.id) {
       const id = req.query.id
      const data = await Userdb.findById(id)
+     const Dob = moment(data.Dob).format('YYYY-MM-DD')
           if (!data) {
             res.status(404).send({ message: "No found user with id" + id })
           }
           else {
-            res.render('editUser', { user: data })
+            res.render('editUser', 
+            { 
+              user: data,
+              Dob:Dob
+            })
           }
         }   
   } catch (error) {
@@ -55,26 +64,44 @@ exports.editUser = async(req, res) => {
 }
 
 exports.update = async (req, res) => {
+  
 
+  
   try {
+    const _id = req.body.id;
     const name = req.body.name;
     const email = req.body.email;
     const number = req.body.number;
+    const Dob = req.body.Dob;
     const image = req.body.filename;
-    const date = req.body.date
     const password = req.body.password;
     const country = req.body.country;
     const address = req.body.address;
-    const id = req.body.id;
-    await Userdb.findOneAndUpdate(
+    
+
+   const data = await Userdb.findByIdAndUpdate
+   (
+     {
+       _id:_id
+      },
       {
-        _id:id
-      },{
-        $set:{name:name,email:email,number:number,password:password,country:country,address:address,image:image[0]}})
+        $set:
+        {
+          name:name,
+          email:email,
+          number:number,
+          Dob:Dob,
+          password:password,
+          country:country,
+          address:address,
+          // image:image[0]
+        }
+      }
+      )
+      console.log(data);
     res.redirect('/')
 
   } catch (error) {
-
     res.status(500).send({ message: "Error update user information" })
 
   }
@@ -97,7 +124,10 @@ exports.delete = async (req, res) => {
 
 exports.serviceAdd = async (req, res, next)=> {
   const data = await Userdb.find()
-  res.render('service',{users:data});
+  res.render('service',
+  {
+    users:data
+  });
 }
 
 exports.serviceCreate = async(req, res) => {
@@ -112,33 +142,29 @@ exports.serviceCreate = async(req, res) => {
       payble_amount:req.body.payble_amount,
       modelId:req.body.Customer_name
     })
-    await service.save(service)
+    await service.save()
         res.redirect('/serviceList')
-        const data = await Userdb.find()
-
-
   } catch (error) {
     console.log(error);
   }
 }
-
 exports.serviceList = async (req, res, next) => {
-  const data = await Servicedb.find()
+  const data = await Servicedb.find().populate('modelId')
   res.render('serviceList', { user: data });
 };
 
 exports.serviceEdit = async(req, res) => {
-  const data1 = await Userdb.find()
-  
   try {
     if (req.query.id) {
       const id = req.query.id
-      const data = await Servicedb.findById(id)
+      const data = await Servicedb.findById(id).populate('modelId')
+      const drop_date = moment(data.drop_date).format('YYYY-MM-DD')
+      const pickup_date = moment(data.pickup_date).format('YYYY-MM-DD')
           if (!data) {
             res.status(404).send({ message: "No found user with id" + id })
           }
           else {
-            res.render('editService', { user: data})
+            res.render('editService', { user: data,drop_date:drop_date,pickup_date:pickup_date})
           }
         }   
   } catch (error) {
@@ -148,25 +174,29 @@ exports.serviceEdit = async(req, res) => {
 }
 
 exports.updateService = async (req, res) => {
-
+  
+  
   try {
+    const drop_date=req.body.drop_date
+    const pickup_date=req.body.pickup_date
     const vehical_number= req.body.vehical_number
-      const pickup_date=req.body.pickup_date
-      const drop_date=req.body.drop_date
       const location=req.body.location
       const service_price=req.body.service_price
       const payble_amount=req.body.payble_amount
-    const id = req.body.id;
-    await Userdb.findOneAndUpdate(
+    const id = req.body.service_id;
+    const data = await Servicedb.findById(id);
+
+   const savedData =  await Servicedb.findByIdAndUpdate(
       {
         _id:id
       },{
         $set:{vehical_number:vehical_number,pickup_date:pickup_date,drop_date:drop_date,location:location,service_price:service_price,payble_amount:payble_amount}})
-    res.redirect('/')
+       
+    res.redirect('/servicelist')
 
   } catch (error) {
 
-    res.status(500).send({ message: "Error update user information" })
+    res.status(211).json({ message: "Error update user information" })
 
   }
 

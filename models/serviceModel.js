@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var DateOnly = require('mongoose-dateonly')(mongoose);
 
 const Schema =  mongoose.Schema;
     const schema = new Schema({

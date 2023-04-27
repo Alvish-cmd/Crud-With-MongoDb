@@ -18,7 +18,7 @@
 
         <!-- add user form -->
          <!-- form handling -->
- <form method="POST" id="update_user">
+ <form method="POST" id="update_user" action="/update-user" enctype="multipart/form-data">
     <div class="new_user">
         <div class="form-group">
             <label for="name" class="text-light">Name</label>
@@ -40,9 +40,9 @@
           <div class="form-group">
             <label for="Dob" class="text-light">Date of Birth</label>
             <input
-              type="date"
+              type="Date"
               name="Dob"
-              value="<%= user.date %>""
+              value="<%= Dob %>"
             />
           </div>
           <div class="form-group">
@@ -71,11 +71,7 @@
           </div>
           <div class="form-group">
             <label for="file" class="text-light">Upload a Img</label>
-            <input type="file" accept="image/*" value="<%= user.image %>" id="myFile" name="filename">
-          </div>
-          <div class="form-group">
-            <label for="file" class="text-light">Upload a file</label>
-            <input type="file" accept=".pdf,.doc/*" id="myFile" name="filename">
+            <input type="file" accept="image/*" value="<%= user.image %>" id="myFile" name="image">
           </div>
         <div class="form-group">
             <button type="submit" class="btn text-dark update">Save</button>

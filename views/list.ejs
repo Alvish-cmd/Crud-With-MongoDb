@@ -4,10 +4,15 @@
 <main id="site-main">
     <div class="container">
         <div class="box-nav d-flex-justify-around">
+            <a href="/"class="border-shadow">
+                <span class="text-gradient">All User <i class="fas fa-user"></i>
+                </span>
+            </a>
             <a href="/adduser"class="border-shadow">
                 <span class="text-gradient">New User <i class="fas fa-user"></i>
                 </span>
             </a>
+            
             <a href="/service"class="border-shadow">
                 <span class="text-gradient">Services <i class="fa fa-wrench"></i>
                 </span>
@@ -27,6 +32,7 @@
                         <th>name</th>
                         <th>email</th>
                         <th>Phone Number</th>
+                        <th>date</th>
                         <th>image</th>
                         <th>action</th>
                     </tr>
@@ -38,8 +44,11 @@
                             <td><%= user[i].name %></td>
                             <td><%= user[i].email %></td>
                             <td><%= user[i].number %></td> 
+                            <td><%= user[i].Dob.toLocaleDateString() %></td> 
+                            
                             <td><img src="../upload/<%= user[i].image %>"
                                 alt=" <%= user[i].image %>"></td>
+
                             <td>
                                 <a href="/update-user?id=<%= user[i]._id%>" class="btn border-shadow update">
                                     <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
@@ -48,8 +57,11 @@
                                     <span class="text-gradient"><i class="fas fa-times"></i></span>
                                 </a>
                             </td>
-                        </tr>
+                        
                         <% } %>
+                        
+            
+                        </tr>
                         
                 </tbody>
             </table>

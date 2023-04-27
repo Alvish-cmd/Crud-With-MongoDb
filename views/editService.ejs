@@ -5,7 +5,7 @@
     <div class="container">
         <div class="box-nav d-flex-justify-between">
             <div class="filter">
-                <a href="/"><i class="fas fa-angle-double-left"></i>All Users</a>
+                <a href="/servicelist"><i class="fas fa-angle-double-left"></i>All Service</a>
             </div>
         </div>
         <div class="form-button text-center">
@@ -19,8 +19,7 @@
         <label for="name" class="text-light">Name</label>
         <input type="hidden" name="id" value="" />
         <select id="Customer_name" name="Customer_name" class="form-control">
-            <option value="detail" selected>select the filed</option>
-          
+            <option value="<%= user.modelId._id%>" ><%= user.modelId.name%></option>
           </select>
          
         </select>
@@ -41,7 +40,7 @@
         id="txtdob"
           type="date"
           name="pickup_date"
-          value="<%= user.pickup_date%>"
+          value="<%=pickup_date%>"
         />
     
       </div>
@@ -51,7 +50,8 @@
         id="txtdob"
           type="date"
           name="drop_date"
-          value="<%= user.drop_date%>"
+          placeholder="select date"
+          value="<%=drop_date%>"
         />
     
       </div>
@@ -84,6 +84,7 @@
         />   
       </div>
       <div class="form-group">
+        <input type="hidden" name="service_id" value="<%= user._id%>">
         <button type="submit" class="btn text-dark update">Save</button>
     </div>
     </div>

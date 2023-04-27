@@ -1,11 +1,6 @@
 const express = require('express');
-const { check, body } = require('express-validator');
 const router = express.Router();
 const indexController = require('../controllers/index.controller');
-const Userdb = require('../models/model');
-
-
-
 
 /* GET home page. */
 
@@ -34,4 +29,6 @@ router.get('/update-service', indexController.serviceEdit);
 router.post('/update-service', indexController.updateService);
 
 router.get('/delete-service', indexController.deleteService);
+
+
 module.exports = router;

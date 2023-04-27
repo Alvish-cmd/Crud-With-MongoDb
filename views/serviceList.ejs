@@ -1,66 +1,91 @@
 <%- include('./include/_header') %>
-<main id="site-main">
-    <div class="container">
-        <div class="box-nav d-flex-justify-around">
-            <a href="/adduser"class="border-shadow">
-                <span class="text-gradient">New User <i class="fas fa-user"></i>
-                </span>
-            </a>
-            <a href="/service"class="border-shadow">
-                <span class="text-gradient">Services <i class="fa fa-wrench"></i>
-                </span>
-            </a>
-            <a href="/serviceList"class="border-shadow">
-                <span class="text-gradient">All Service<i class="fa fa-wrench"></i>
-                </span>
-            </a>
-        </div> 
- 
-        <!-- form Handling -->
-        <form action="/serviceList" method="POST">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>name</th>
-                        <th>Vehical Number</th>
-                        <th>Pickup Date</th>
-                        <th>Drop Date</th>
-                        <th>Location</th>
-                        <th>Service Price</th>
-                        <th>Payable Amount</th>
-                        <th style="
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex-justify-around">
+                <a href="/"class="border-shadow">
+                    <span class="text-gradient">All User <i class="fas fa-user"></i>
+                    </span>
+                </a>
+                <a href="/adduser" class="border-shadow">
+                    <span class="text-gradient">New User <i class="fas fa-user"></i>
+                    </span>
+                </a>
+                <a href="/service" class="border-shadow">
+                    <span class="text-gradient">Services <i class="fa fa-wrench"></i>
+                    </span>
+                </a>
+                <a href="/serviceList" class="border-shadow">
+                    <span class="text-gradient">All Service<i class="fa fa-wrench"></i>
+                    </span>
+                </a>
+            </div>
+
+            <!-- form Handling -->
+            <form action="/serviceList" method="POST">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>name</th>
+                            <th>Vehical Number</th>
+                            <th>Pickup Date</th>
+                            <th>Drop Date</th>
+                            <th>Location</th>
+                            <th>Service Price</th>
+                            <th>Payable Amount</th>
+                            <th style="
                         width: 179px;
                     ">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%for(var i=0;i<user.length;i++) { %>
-                        <tr>
-                            <td><%= i+1 %></td>
-                            <td><%= user[i].name %></td>
-                            <td><%= user[i].vehical_number %></td>
-                            <td><%= user[i].pickup_date %></td> 
-                            <td><%= user[i].drop_date%></td> 
-                            <td><%= user[i].location%></td>
-                            <td><%= user[i].service_price%></td>
-                            <td><%= user[i].payble_amount%></td>
-                            <td>
-                                <a href="/update-service?id=<%= user[i]._id%>" class="btn border-shadow update">
-                                    <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
-                                </a>
-                                <a href="/delete-service?id=<%= user[i]._id%>" class="btn border-shadow delete">
-                                    <span class="text-gradient"><i class="fas fa-times"></i></span>
-                                </a>
-                            </td>
                         </tr>
-                        <% } %>
-                        
-                </tbody>
-            </table>
-           
-        </form>
-    </div>
-</main>
+                    </thead>
+                    <tbody>
+                        <%for(var i=0;i<user.length;i++) { %>
+                            <tr>
+                                <td>
+                                    <%= i+1 %>
+                                </td>
+                                <td>
+                                    <%= user[i].modelId.name %>
+                                </td>
+                                <td>
+                                    <%= user[i].vehical_number %>
+                                </td>
+                                <td>
+                                    <% if (user[i].pickup_date) { %>
+                                        <%= user[i].pickup_date.toLocaleDateString() %>
+                                     <% } %>
+                                </td>
+                                <td>
+                                    <% if (user[i].drop_date) { %>
+                                        <%= user[i].drop_date.toLocaleDateString() %>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= user[i].location%>
+                                </td>
+                                <td>
+                                    <%= user[i].service_price%>
+                                </td>
+                                <td>
+                                    <%= user[i].payble_amount%>
+                                </td>
 
-<%- include('./include/_footer.ejs') %>
+                                <td>
+                                    <a href="/update-service?id=<%= user[i]._id%>" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                    <a href="/delete-service?id=<%= user[i]._id%>" class="btn border-shadow delete">
+                                        <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% } %>
+
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </main>
+
+    <%- include('./include/_footer.ejs') %>
